@@ -1,5 +1,11 @@
 # 📌 KẾ HOẠCH PHÁT TRIỂN DỰ ÁN WEB BÁN ĐỒNG HỒ
 
+## 🔗 **Tài liệu chi tiết**
+[📄 Xem tài liệu trên Google Docs](https://docs.google.com/document/d/1yl-JSgz586TgAU-3HmlkMcfWUaWcp2-sJ9SMAVK1DnM/edit?tab=t.0)
+
+## 🔗 **Kế hoạch thực hiện chi tiết**
+[📄 Xem tài liệu trên Google Sheets](https://docs.google.com/spreadsheets/d/1Kw4UIclchXwuC_yKuIWTfFBJPIG97-qdbnDHOvwNq3M/edit?gid=0#gid=0)
+
 ## 📌 GIỚI THIỆU
 Dự án xây dựng một hệ thống bán đồng hồ trực tuyến theo kiến trúc **Microservice** sử dụng **Spring Boot**. Hệ thống bao gồm các dịch vụ như **quản lý tài khoản, sản phẩm, đơn hàng, giỏ hàng, xác thực và nhận hàng**.
 
