@@ -2,7 +2,7 @@
 
 ### 2.2.1. Usecase tổng quát
 
-![Usecase tổng quát](../UCtongquat.jpg)
+![Usecase tổng quát](../../image/UCtongquat.jpg))
 
 ### 2.2.2. Đặc tả Use Case
 
