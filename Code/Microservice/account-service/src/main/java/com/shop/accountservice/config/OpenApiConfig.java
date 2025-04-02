@@ -14,7 +14,7 @@ import java.util.List;
 public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
-        String gatewayUrl = "http://localhost:8080"; // Thay đổi khi deploy AWS
+        String gatewayUrl = "http://localhost:8080";
 
         return new OpenAPI()
                 .info(new Info()
@@ -23,7 +23,7 @@ public class OpenApiConfig {
                         .description("This is a sample API for demonstration.")
                         .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0.html"))
                 )
-                // 🔥 Định nghĩa Security Scheme, nhưng không áp dụng cho tất cả API
+                //
                 .components(new io.swagger.v3.oas.models.Components()
                         .addSecuritySchemes("BearerAuth",
                                 new SecurityScheme().name("BearerAuth")
