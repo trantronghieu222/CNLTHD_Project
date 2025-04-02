@@ -105,30 +105,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product uploadProductImage(Integer id, MultipartFile file) {
-        Product product = findById(id);
-
-        try {
-            // Định nghĩa thư mục lưu ảnh trong thư mục gốc của dự án
-            String uploadDir = System.getProperty("user.dir") + "/product-service/src/main/resources/static/";
-
-            // Tạo tên file mới (tránh trùng lặp)
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            String filePath = uploadDir + fileName;
-
-            // Lưu file vào thư mục
-            file.transferTo(new File(filePath));
-
-            // Cập nhật đường dẫn ảnh vào database
-            product.setProductImage(fileName);
-
-            return productRepository.save(product);
-        } catch (IOException e) {
-            throw new RuntimeException("Lỗi khi upload file: " + e.getMessage());
-        }
-    }
-
-    @Override
     public Product uploadImage(Integer id, MultipartFile file) {
         Product product = findById(id);
 

@@ -22,7 +22,5 @@ public interface ProductService {
 
     void delete(Integer id);
 
-    Product uploadProductImage(Integer id, MultipartFile file);
-
     Product uploadImage(Integer id, MultipartFile file);
 }
