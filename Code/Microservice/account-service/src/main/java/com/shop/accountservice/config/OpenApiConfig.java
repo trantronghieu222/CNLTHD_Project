@@ -14,7 +14,7 @@ import java.util.List;
 public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
-//        String gatewayUrl = "http://localhost:8080"; // Thay đổi khi deploy AWS
+        String gatewayUrl = "http://localhost:8080"; // Thay đổi khi deploy AWS
 
         return new OpenAPI()
                 .info(new Info()
@@ -29,9 +29,9 @@ public class OpenApiConfig {
                                 new SecurityScheme().name("BearerAuth")
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")
-                                        .bearerFormat("JWT")));
-//                .servers(List.of(
-//                        new Server().url(gatewayUrl + "/account-service").description("API Gateway - Account Service")
-//                ));
+                                        .bearerFormat("JWT")))
+                .servers(List.of(
+                        new Server().url(gatewayUrl + "/account-service").description("API Gateway - Account Service")
+                ));
     }
 }

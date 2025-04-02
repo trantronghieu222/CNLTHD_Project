@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableFeignClients
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 public class AuthServiceApplication {
 
 	public static void main(String[] args) {
