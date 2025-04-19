@@ -79,16 +79,6 @@ public class ProductController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ApiResponse<Product>> updateProduct(
-//            @PathVariable Integer id,
-//            @RequestBody ProductCreate request
-//    ){
-//        Product product = productService.update(id, request);
-//        ApiResponse<Product> apiResponse = ApiResponse.createResponse(product, "Cập nhật sản phẩm thành công!", HttpStatus.OK.value());
-//        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-//    }
-
     @PutMapping
     public ResponseEntity<ApiResponse<Product>> updateProduct(
             @RequestBody Product request
@@ -114,18 +104,6 @@ public class ProductController {
     ){
         Product product = productService.findById(id);
         return product.getProductInventory() >= prodQuan;
-    }
-
-    @PostMapping(value = "/upload-image/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @Operation(summary = "Upload hình ảnh sản phẩm", description = "Upload file ảnh cho sản phẩm với ID cụ thể")
-    public ResponseEntity<ApiResponse<?>> uploadProductImage(
-            @PathVariable Integer id,
-            @RequestPart("file")
-            @Parameter(description = "File ảnh sản phẩm cần upload", required = true) MultipartFile file) {
-
-        Product updatedProduct = productService.uploadProductImage(id, file);
-        ApiResponse<?> apiResponse = ApiResponse.createResponse(updatedProduct, "Upload thành công", HttpStatus.OK.value());
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @PostMapping(value = "/upload-image-cloud/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
