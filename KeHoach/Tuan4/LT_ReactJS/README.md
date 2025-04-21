@@ -98,9 +98,9 @@ React sử dụng `useState` để quản lý trạng thái cục bộ trong com
 ```jsx
 const [quantity, setQuantity] = useState(1);
 const increase = () => setQuantity(quantity + 1);
+```
 
 Các trạng thái được quản lý bao gồm:
-
 - **Trạng thái giỏ hàng**: Số lượng sản phẩm và tổng tiền sẽ được cập nhật khi người dùng thêm hoặc xóa sản phẩm khỏi giỏ hàng.
 - **Trạng thái hiển thị modal**: Quản lý trạng thái mở/đóng các modal như form đăng nhập, xem chi tiết đơn hàng, hay cập nhật thông tin.
 - **Loading, thông báo**: Quản lý trạng thái hiển thị loading spinner khi dữ liệu đang được tải và hiển thị thông báo (toast, snackbar) khi có các sự kiện như "Thêm vào giỏ hàng thành công" hoặc thông báo lỗi.
@@ -115,4 +115,20 @@ useEffect(() => {
     .then(res => setProduct(res.data))
     .catch(err => console.error(err));
 }, [id]);
+```
+Ứng dụng sử dụng API để:
+- Lấy danh sách sản phẩm, thông tin chi tiết.
+- Đăng nhập / đăng ký.
+- Thêm, sửa, xoá đơn hàng.
+- Hiển thị lịch sử mua hàng.
 
+### 🔄 3.4 Giao tiếp giữa các component
+React hỗ trợ truyền dữ liệu từ component cha xuống component con bằng props. Khi người dùng tương tác ở component con (ví dụ: chọn bộ lọc), callback sẽ truyền ngược dữ liệu lên để xử lý. Việc này giúp đảm bảo UI luôn đồng bộ khi người dùng thao tác nhiều phần tử liên quan.
+
+### 🗣️ 3.5 Hiển thị phản hồi người dùng (Feedback UI)
+Giao diện cần hiển thị các phản hồi như:
+- Loading spinner khi đang gọi API.
+- Hiển thị thông báo lỗi nếu login sai thông tin.
+- Xác nhận “thêm vào giỏ hàng thành công” bằng Snackbar hoặc Toast.
+
+Thư viện Material UI, react-toastify được nhóm sử dụng để hiển thị các phản hồi này một cách đẹp mắt và rõ ràng.
