@@ -9,7 +9,6 @@ Dự án Watch Shop là hệ thống bán hàng đồng hồ trực tuyến vớ
 - [🔍 1. Giới thiệu ReactJS](#-1-giới-thiệu-reactjs)
 - [🎨 2. Thiết kế giao diện người dùng](#-2-thiết-kế-giao-diện-người-dùng)
 - [⚙️ 3. Xử lý tương tác người dùng](#️-3-xử-lý-tương-tác-người-dùng)
-- [✅ 4. Kết luận](#-4-kết-luận)
 
 ---
 
