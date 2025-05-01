@@ -6,11 +6,3 @@ spring:
   cloud:
     config:
       fail-fast: true
-#    gateway:
-#      globalcors:
-#        corsConfigurations:
-#          '[/**]':
-#            allowedOrigins: "http://localhost:8080"
-#            allowedMethods: "*"
-#            allowedHeaders: "*"
-#            allowCredentials: true
