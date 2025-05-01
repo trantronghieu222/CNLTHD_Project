@@ -59,3 +59,10 @@ spring:
             - Path=/received-service/**
           filters:
             - StripPrefix=1
+        
+        - id: openapi
+          uri: lb://gateway-service
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<service>.*), /${service}/v3/api-docs
