@@ -1,4 +1,7 @@
 package com.shop.watch.repository;
 
-public interface OrderRepository {
+import com.shop.watch.model.OrderModel;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderRepository extends JpaRepository<OrderModel, Integer> {
 }
