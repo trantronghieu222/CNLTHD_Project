@@ -1,4 +1,4 @@
-package com.shop.orderservice;
+package com.shop.orderservice.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;

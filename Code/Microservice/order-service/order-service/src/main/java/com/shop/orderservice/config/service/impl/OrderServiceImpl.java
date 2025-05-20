@@ -1,22 +1,21 @@
-package com.shop.orderservice.service.impl;
+package com.shop.orderservice.config.service.impl;
 
-import com.shop.orderservice.client.AccountClient;
-import com.shop.orderservice.client.ProductClient;
-import com.shop.orderservice.common.OrderStatus;
-import com.shop.orderservice.dto.request.CreateOrderRequest;
-import com.shop.orderservice.dto.request.UpdateStatusRequest;
-import com.shop.orderservice.entity.Order;
-import com.shop.orderservice.entity.OrderDetail;
-import com.shop.orderservice.exception.AppException;
-import com.shop.orderservice.exception.ErrorCode;
-import com.shop.orderservice.repository.OrderRepository;
-import com.shop.orderservice.service.OrderService;
+import com.shop.orderservice.config.client.AccountClient;
+import com.shop.orderservice.config.client.ProductClient;
+import com.shop.orderservice.config.common.OrderStatus;
+import com.shop.orderservice.config.dto.request.CreateOrderRequest;
+import com.shop.orderservice.config.dto.request.UpdateStatusRequest;
+import com.shop.orderservice.config.entity.Order;
+import com.shop.orderservice.config.entity.OrderDetail;
+import com.shop.orderservice.config.exception.AppException;
+import com.shop.orderservice.config.exception.ErrorCode;
+import com.shop.orderservice.config.repository.OrderRepository;
+import com.shop.orderservice.config.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Service
