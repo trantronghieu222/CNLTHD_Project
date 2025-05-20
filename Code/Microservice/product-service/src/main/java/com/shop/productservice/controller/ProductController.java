@@ -5,6 +5,7 @@ import com.shop.productservice.entity.Product;
 import com.shop.productservice.service.impl.ProductServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,6 +71,7 @@ public class ProductController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @PostMapping
     public ResponseEntity<ApiResponse<Product>> createProduct(
             @RequestBody ProductCreate request
@@ -79,6 +81,17 @@ public class ProductController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
+//    @PutMapping("/{id}")
+//    public ResponseEntity<ApiResponse<Product>> updateProduct(
+//            @PathVariable Integer id,
+//            @RequestBody ProductCreate request
+//    ){
+//        Product product = productService.update(id, request);
+//        ApiResponse<Product> apiResponse = ApiResponse.createResponse(product, "Cập nhật sản phẩm thành công!", HttpStatus.OK.value());
+//        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+//    }
+
+    @SecurityRequirement(name = "BearerAuth")
     @PutMapping
     public ResponseEntity<ApiResponse<Product>> updateProduct(
             @RequestBody Product request
@@ -88,6 +101,7 @@ public class ProductController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Object>> deleteProduct(
             @PathVariable Integer id
@@ -106,6 +120,20 @@ public class ProductController {
         return product.getProductInventory() >= prodQuan;
     }
 
+    @SecurityRequirement(name = "BearerAuth")
+    @PostMapping(value = "/upload-image/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Upload hình ảnh sản phẩm", description = "Upload file ảnh cho sản phẩm với ID cụ thể")
+    public ResponseEntity<ApiResponse<?>> uploadProductImage(
+            @PathVariable Integer id,
+            @RequestPart("file")
+            @Parameter(description = "File ảnh sản phẩm cần upload", required = true) MultipartFile file) {
+
+        Product updatedProduct = productService.uploadProductImage(id, file);
+        ApiResponse<?> apiResponse = ApiResponse.createResponse(updatedProduct, "Upload thành công", HttpStatus.OK.value());
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @SecurityRequirement(name = "BearerAuth")
     @PostMapping(value = "/upload-image-cloud/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Upload hình ảnh sản phẩm", description = "Upload file ảnh cho sản phẩm với ID cụ thể")
     public ResponseEntity<ApiResponse<?>> uploadImage(
