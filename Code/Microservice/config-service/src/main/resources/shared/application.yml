@@ -1,8 +1,22 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:9999/eureka/}
+  instance:
+    prefer-ip-address: true
+
 management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+
 
 logging:
   level:

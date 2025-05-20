@@ -1,5 +1,7 @@
 package com.shop.orderservice.service.impl;
 
+import com.shop.orderservice.client.AccountClient;
+import com.shop.orderservice.client.ProductClient;
 import com.shop.orderservice.common.OrderStatus;
 import com.shop.orderservice.dto.request.CreateOrderRequest;
 import com.shop.orderservice.dto.request.UpdateStatusRequest;
@@ -9,16 +11,27 @@ import com.shop.orderservice.exception.AppException;
 import com.shop.orderservice.exception.ErrorCode;
 import com.shop.orderservice.repository.OrderRepository;
 import com.shop.orderservice.service.OrderService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private AccountClient accountClient;
+
+    @Autowired
+    private ProductClient productClient;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public List<Order> findAll() {
@@ -38,9 +51,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order createOrder(CreateOrderRequest createOrderRequest) {
-        // Kiểm tra tồn tại user
-//        accountClient.getAccountById(createOrderRequest.getCustomerId());
-
+        accountClient.getAccountById(createOrderRequest.getCustomerId());
 
         Order order = new Order();
         order.setCustomerId(createOrderRequest.getCustomerId());
@@ -49,16 +60,15 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderStatus(OrderStatus.PENDING);
         order.setTotalAmount(createOrderRequest.getTotalAmount());
 
-        // Kiểm tra mảng tồn tại sản phẩm
-//        for (OrderDetail orderDetail: createOrderRequest.getOrderDetails()){
-//            boolean isAvailable = productClient.checkStock(orderDetail.getProductId(), orderDetail.getProductQuantity());
-//            if (isAvailable) {
-//                productClient.getProductById(orderDetail.getProductId());
-//            }
-//            else {
-//                throw new AppException(ErrorCode.PRODUCT_OUT_OF_STOCK);
-//            }
-//        }
+        for (OrderDetail orderDetail: createOrderRequest.getOrderDetails()){
+            boolean isAvailable = productClient.checkStock(orderDetail.getProductId(), orderDetail.getProductQuantity());
+            if (isAvailable) {
+                productClient.getProductById(orderDetail.getProductId());
+            }
+            else {
+                throw new AppException(ErrorCode.PRODUCT_OUT_OF_STOCK);
+            }
+        }
 
         createOrderRequest.getOrderDetails().forEach(orderDetail -> orderDetail.setOrders(order));
         order.setOrderDetails(createOrderRequest.getOrderDetails());

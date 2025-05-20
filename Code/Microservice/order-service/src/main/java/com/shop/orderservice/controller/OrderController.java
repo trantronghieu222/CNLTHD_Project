@@ -5,6 +5,7 @@ import com.shop.orderservice.dto.request.UpdateStatusRequest;
 import com.shop.orderservice.dto.response.ApiResponse;
 import com.shop.orderservice.entity.Order;
 import com.shop.orderservice.service.impl.OrderServiceImpl;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,6 +23,7 @@ public class OrderController {
     @Autowired
     private OrderServiceImpl orderService;
 
+    @SecurityRequirement(name = "BearerAuth")
     @GetMapping
     public ResponseEntity<ApiResponse<List<Order>>> getAllOrder(){
         List<Order> orders = orderService.findAll();
@@ -29,6 +31,7 @@ public class OrderController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Order>> getOrderById (@PathVariable Integer id) {
         Order order = orderService.findById(id);
@@ -36,6 +39,7 @@ public class OrderController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @GetMapping("get-by-customer/{id}")
     public ResponseEntity<ApiResponse<List<Order>>> getOrderByCustomerId (@PathVariable Integer id) {
         List<Order> orders = orderService.findByCustomerId(id);
@@ -43,6 +47,12 @@ public class OrderController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+//    @PostMapping
+//    public ResponseEntity<Order> saveOrder(@RequestParam Integer UserId, @RequestBody List<OrderDetail> orderDetails) {
+//        return ResponseEntity.ok(orderService.save(UserId, orderDetails));
+//    }
+
+    @SecurityRequirement(name = "BearerAuth")
     @PostMapping
     public ResponseEntity<ApiResponse<Order>> createOrder(@RequestBody CreateOrderRequest createOrderRequest){
         Order order = orderService.createOrder(createOrderRequest);
@@ -50,6 +60,7 @@ public class OrderController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @PutMapping
     public ResponseEntity<ApiResponse<Order>> updateStatus(
             @RequestParam Integer OrderId,
@@ -60,6 +71,7 @@ public class OrderController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<?>> deleteOrder(@PathVariable Integer id) {
         orderService.deleteOrder(id);
@@ -67,24 +79,22 @@ public class OrderController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @GetMapping("/total-revenue")
-    public ResponseEntity<ApiResponse<Double>> getTotalRevenue(
+    public ResponseEntity<Double> getTotalRevenue(
             @RequestParam("from") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate from,
             @RequestParam("to") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate to)
     {
         Double revenue = orderService.getTotalRevenue(from, to);
-        ApiResponse<Double> apiResponse = ApiResponse.createResponse(revenue, "Thành công!", HttpStatus.OK.value());
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        return ResponseEntity.ok(revenue);
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @GetMapping("/count")
-    public ResponseEntity<ApiResponse<Long>> getOrderCountByDate(
+    public ResponseEntity<Long> getOrderCountByDate(
             @RequestParam("date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date)
     {
         Long count = orderService.getOrderCountByDate(date);
-        ApiResponse<Long> apiResponse = ApiResponse.createResponse(count, "Thành công!", HttpStatus.OK.value());
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        return ResponseEntity.ok(count);
     }
 }
