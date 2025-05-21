@@ -3,6 +3,7 @@ package com.shop.receivedservice.controller;
 import com.shop.receivedservice.dto.request.ReceivedCreateRequest;
 import com.shop.receivedservice.dto.response.ApiResponse;
 import com.shop.receivedservice.entity.Received;
+import com.shop.receivedservice.entity.ReceivedDetail;
 import com.shop.receivedservice.service.impl.ReceivedServiceImpl;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,6 +21,7 @@ public class ReceivedController {
     @Autowired
     private ReceivedServiceImpl receivedService;
 
+    @SecurityRequirement(name = "BearerAuth")
     @GetMapping
     public ResponseEntity<ApiResponse<List<Received>>> getAllReceived(){
         List<Received> receiveds = receivedService.findAll();
@@ -27,6 +29,7 @@ public class ReceivedController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Received>> getReceivedById(Integer id) {
         Received received = receivedService.findById(id);
@@ -34,6 +37,7 @@ public class ReceivedController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @PostMapping
     public ResponseEntity<ApiResponse<Received>> create(
             @RequestBody ReceivedCreateRequest receivedCreateRequest
@@ -43,6 +47,7 @@ public class ReceivedController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @DeleteMapping
     public ResponseEntity<ApiResponse<?>> deleteReceived(@RequestParam Integer id){
         receivedService.delete(id);
