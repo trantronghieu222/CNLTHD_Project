@@ -38,7 +38,7 @@ public class ReceivedServiceImpl implements ReceivedService {
                 orElseThrow(() -> new AppException(ErrorCode.RECEIVED_NOT_FOUND));
     }
 
-        @Override
+    @Override
     public Received create(ReceivedCreateRequest receivedCreateRequest) {
         accountClient.getAccountById(receivedCreateRequest.getUserId());
 
